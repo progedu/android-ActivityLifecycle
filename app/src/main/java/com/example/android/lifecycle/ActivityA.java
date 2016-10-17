@@ -42,6 +42,12 @@ public class ActivityA extends Activity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        mStatusTracker.setStatus(mActivityName, getString(R.string.on_stop));
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_destroy));
@@ -50,6 +56,16 @@ public class ActivityA extends Activity {
 
     public void startDialog(View v) {
         Intent intent = new Intent(this, DialogActivity.class);
+        startActivity(intent);
+    }
+
+    public void startActivityB(View v) {
+        Intent intent = new Intent(ActivityA.this, ActivityB.class);
+        startActivity(intent);
+    }
+
+    public void startActivityC(View v) {
+        Intent intent = new Intent(ActivityA.this, ActivityC.class);
         startActivity(intent);
     }
 }
