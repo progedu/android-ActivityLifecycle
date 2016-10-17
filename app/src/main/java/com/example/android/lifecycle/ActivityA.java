@@ -1,7 +1,9 @@
 package com.example.android.lifecycle;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.android.lifecycle.util.StatusTracker;
@@ -26,9 +28,21 @@ public class ActivityA extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mStatusTracker.setStatus(mActivityName, getString(R.string.on_pause));
+        Utils.printStatus(mStatusView, mStatusAllView);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_destroy));
         mStatusTracker.clear();
+    }
+
+    public void startDialog(View v) {
+        Intent intent = new Intent(this, DialogActivity.class);
+        startActivity(intent);
     }
 }
