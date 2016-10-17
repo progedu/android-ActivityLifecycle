@@ -28,6 +28,13 @@ public class ActivityA extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mStatusTracker.setStatus(mActivityName, getString(R.string.on_resume));
+        Utils.printStatus(mStatusView, mStatusAllView);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_pause));
