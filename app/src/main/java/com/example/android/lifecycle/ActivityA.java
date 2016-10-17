@@ -24,4 +24,11 @@ public class ActivityA extends Activity {
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_create));
         Utils.printStatus(mStatusView, mStatusAllView);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mStatusTracker.setStatus(mActivityName, getString(R.string.on_destroy));
+        mStatusTracker.clear();
+    }
 }
