@@ -23,6 +23,7 @@ limitations under the License.
     >
 
     <TextView android:layout_width="match_parent"
+        android:id="@+id/text_view_a"
         android:layout_height="wrap_content"
         android:text="@string/activity_a"
         android:gravity="center_horizontal"

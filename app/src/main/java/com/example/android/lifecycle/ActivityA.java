@@ -15,6 +15,8 @@ public class ActivityA extends Activity {
     private TextView mStatusView;
     private TextView mStatusAllView;
     private StatusTracker mStatusTracker = StatusTracker.getInstance();
+    private int recreateCount;
+    static final String RECREATE_COUNT = "recreateCount";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,12 @@ public class ActivityA extends Activity {
         mStatusAllView = (TextView) findViewById(R.id.status_view_all_a);
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_create));
         Utils.printStatus(mStatusView, mStatusAllView);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(RECREATE_COUNT, recreateCount);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
