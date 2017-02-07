@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.android.lifecycle.util.RecreateCounter;
 import com.example.android.lifecycle.util.StatusTracker;
 import com.example.android.lifecycle.util.Utils;
 
@@ -16,7 +17,6 @@ public class ActivityA extends Activity {
     private TextView mStatusView;
     private TextView mStatusAllView;
     private StatusTracker mStatusTracker = StatusTracker.getInstance();
-    private int recreateCount;
     static final String RECREATE_COUNT = "recreateCount";
 
     @Override
@@ -34,14 +34,12 @@ public class ActivityA extends Activity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        recreateCount = savedInstanceState.getInt(RECREATE_COUNT);
-        recreateCount++;
-        mTextView.setText(getString(R.string.activity_a) + " " + recreateCount);
+        RecreateCounter.getInstance().increment();
+        mTextView.setText(getString(R.string.activity_a) + " " + RecreateCounter.getInstance().getCount());
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(RECREATE_COUNT, recreateCount);
         super.onSaveInstanceState(outState);
     }
 
@@ -100,4 +98,9 @@ public class ActivityA extends Activity {
         Intent intent = new Intent(ActivityA.this, ActivityC.class);
         startActivity(intent);
     }
+
+    public void finishActivityA(View v) {
+        ActivityA.this.finish();
+    }
+
 }
